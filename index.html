@@ -31,6 +31,7 @@
     body {
       height: 100%;
       margin: 0;
+      overflow: hidden; /* تقليل حركة الشاشة لأعلى/أسفل */
     }
 
     body {
@@ -41,7 +42,7 @@
     }
 
     .app {
-      min-height: 100vh;
+      height: 100%;
       max-width: 600px;
       margin: 0 auto;
       padding: 12px;
@@ -84,6 +85,7 @@
       justify-content: center;
       position: relative;
       overflow: hidden;
+      min-height: 145px; /* ارتفاع ثابت للكرت حتى لا ينحف */
     }
 
     .card-lana.highlight {
@@ -408,7 +410,7 @@
 </head>
 <body>
   <div class="app">
-    <!-- هيدر بدون اسم، أزرار في المنتصف، زر إعادة التراجع على الطرف -->
+    <!-- هيدر: الأزرار في المنتصف، زر إعادة التراجع على الطرف -->
     <header>
       <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%;">
         <div style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px;">
@@ -642,7 +644,7 @@
         history = Array.isArray(data.history) ? data.history : [];
         lastUndone = data.lastUndone ?? null;
         lanaWins = data.lanaWins ?? 0;
-        lahomWins = data.lahomWins ?? 0;
+        lahomWins = data.lomWins ?? 0;
         startTimestamp = data.startTimestamp ?? null;
         if (startTimestamp !== null) {
           startClock();
