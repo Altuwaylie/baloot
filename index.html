@@ -30,7 +30,7 @@
     html,
     body {
       height: 100%;
-      overflow: hidden;
+      margin: 0;
     }
 
     body {
@@ -41,18 +41,19 @@
     }
 
     .app {
-      height: 100vh;
+      min-height: 100vh;
       max-width: 600px;
       margin: 0 auto;
       padding: 12px;
       display: flex;
       flex-direction: column;
+      padding-bottom: env(safe-area-inset-bottom, 0px);
     }
 
     header {
       padding: 8px 0 4px;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       gap: 8px;
     }
@@ -61,6 +62,15 @@
       font-size: 1.4rem;
       font-weight: 700;
       letter-spacing: 0.08em;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: flex-start;
+      margin-top: 2px;
+      flex-wrap: wrap;
     }
 
     .boards {
@@ -244,7 +254,7 @@
     .bottom-bar {
       margin-top: 4px;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
       font-size: 0.78rem;
       color: var(--text-muted);
@@ -407,49 +417,68 @@
         font-size: 2.4rem;
       }
       .card-title {
-        font-size: 2.4rem;
+        font-size: 2.4rem.
       }
     }
   </style>
 </head>
 <body>
   <div class="app">
-    <header>
-      <h1>حاسبة البلوت</h1>
-      <button
-        id="btn-redo"
-        title="إعادة آخر تراجع"
-        style="
-          background: transparent;
-          border: none;
-          color: #9ca3af;
-          padding: 4px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-        "
-      >
-        <svg viewBox="0 0 24 24" fill="none" style="width: 20px; height: 20px">
-          <path
-            d="M15 5l5 5-5 5"
-            stroke="#9ca3af"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M4 19a8 8 0 018-8h8"
-            stroke="#9ca3af"
-            stroke-width="2"
-            stroke-linecap="round"
-          />
-        </svg>
-      </button>
-    </header>
+   <header>
+  <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%;">
+    
+    <!-- يسار: العنوان + الأزرار (في اتجاه RTL ستظهر على اليمين بصرياً) -->
+    <div style="display:flex; align-items:center; gap:10px; flex:1; justify-content:flex-start;">
+
+      <!-- العنوان -->
+      <h1 style="white-space:nowrap;">حاسبة البلوت</h1>
+
+      <!-- الأزرار بين العنوان وزر التراجع -->
+      <div class="top-actions" style="display:flex; gap:8px; flex-wrap:nowrap;">
+        <button class="btn btn-history" id="btn-history">عرض السجل</button>
+        <button class="btn btn-secondary" id="btn-new-game">صكة جديدة</button>
+      </div>
+
+    </div>
+
+    <!-- يمين: زر التراجع عن التراجع -->
+    <button
+      id="btn-redo"
+      title="إعادة آخر تراجع"
+      style="
+        background: transparent;
+        border: none;
+        color: #9ca3af;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        flex-shrink:0;
+      "
+    >
+      <svg viewBox="0 0 24 24" fill="none" style="width: 20px; height: 20px">
+        <path
+          d="M15 5l5 5-5 5"
+          stroke="#9ca3af"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M4 19a8 8 0 018-8h8"
+          stroke="#9ca3af"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+    </button>
+
+  </div>
+</header>
+
 
     <main class="boards">
-      <!-- النصف العلوي -->
       <section class="card-row" id="row-top">
         <section class="card card-lana" id="card-lana-top">
           <div class="card-inner">
@@ -496,7 +525,6 @@
         </section>
       </section>
 
-      <!-- إدخال في المنتصف -->
       <section class="middle-input">
         <div class="inputs-row">
           <div class="inputs">
@@ -541,7 +569,6 @@
         </button>
       </section>
 
-      <!-- النصف السفلي المعكوس -->
       <section class="card-row rotate-180" id="row-bottom">
         <section class="card card-lana" id="card-lana-bottom">
           <div class="card-inner">
@@ -590,15 +617,12 @@
     </main>
 
     <div class="bottom-bar">
-      <button class="btn btn-history" id="btn-history">عرض السجل</button>
-      <button class="btn btn-secondary" id="btn-new-game">صكة جديدة</button>
       <span>الحالة محفوظة في الجهاز</span>
     </div>
   </div>
 
   <div class="toast" id="toast"></div>
 
-  <!-- Modal السجل -->
   <div class="modal-backdrop" id="modal-backdrop">
     <div class="modal">
       <div class="modal-header">
@@ -609,7 +633,6 @@
     </div>
   </div>
 
-  <!-- واجهة الفائز -->
   <div class="winner-overlay" id="winner-overlay">
     <div class="winner-card">
       <button class="winner-close" id="winner-close">&times;</button>
@@ -863,14 +886,9 @@
       return `${mm}:${ss}`;
     }
 
-    function updateElapsedDisplay() {
-      const seconds = getElapsedSeconds();
-      winnerTimeEl.textContent = `مدة الصكة: ${formatSeconds(seconds)}`;
-    }
-
     function startClock() {
       if (timerInterval) clearInterval(timerInterval);
-      timerInterval = setInterval(() => {}, 1000); // لا نعرض الوقت حيًا الآن، فقط نحسب عند الفوز
+      timerInterval = setInterval(() => {}, 1000);
     }
 
     function startClockIfNeeded() {
@@ -953,42 +971,35 @@
       showToast("تم تصفير كل شيء وبداية جديدة");
     }
 
-    // قص الرقم لرقمين
     function sanitizeTwoDigits(input) {
       if (input.value.length > 2) {
         input.value = input.value.slice(0, 2);
       }
     }
 
-    // الإضافة التلقائية إذا كان في الحقلين قيمة
-   function tryAutoAdd() {
-  const lanaStr = inputLana.value.trim();
-  const lahomStr = inputLahom.value.trim();
+    function tryAutoAdd() {
+      const lanaStr = inputLana.value.trim();
+      const lahomStr = inputLahom.value.trim();
 
-  const hasLana = lanaStr !== "";
-  const hasLahom = lahomStr !== "";
+      const hasLana = lanaStr !== "";
+      const hasLahom = lahomStr !== "";
 
-  if (!hasLana || !hasLahom) return;
+      if (!hasLana || !hasLahom) return;
 
-  const lanaVal = parseInt(lanaStr, 10);
-  const lahomVal = parseInt(lahomStr, 10);
+      const lanaVal = parseInt(lanaStr, 10);
+      const lahomVal = parseInt(lahomStr, 10);
 
-  if (Number.isNaN(lanaVal) || Number.isNaN(lahomVal)) return;
+      if (Number.isNaN(lanaVal) || Number.isNaN(lahomVal)) return;
 
-  // تنظيف الحقول
-  inputLana.value = "";
-  inputLahom.value = "";
+      inputLana.value = "";
+      inputLahom.value = "";
 
-  // إضافة الجولة
-  addRound(lanaVal, lahomVal);
+      addRound(lanaVal, lahomVal);
 
-  // إغلاق الكيبورد (إلغاء التركيز عن الحقول)
-  inputLana.blur();
-  inputLahom.blur();
-}
+      inputLana.blur();
+      inputLahom.blur();
+    }
 
-
-    // منطق الإدخال للحقلين
     inputLana.addEventListener("input", () => {
       sanitizeTwoDigits(inputLana);
 
@@ -1023,6 +1034,8 @@
       inputLana.value = "";
       inputLahom.value = "";
       addRound(lanaVal || 0, lahomVal || 0);
+      inputLana.blur();
+      inputLahom.blur();
     });
 
     btnUndo.addEventListener("click", () => {
