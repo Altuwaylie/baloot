@@ -47,7 +47,7 @@
       display: flex;
       flex-direction: column;
       width: 100%;
-      height: 100svh; /* يتكيف مع كل الأجهزة الحديثة */
+      height: 100svh; /* يتكيف مع الأجهزة الحديثة (آيفون، فولد، ... ) */
       padding: 12px;
       padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
     }
@@ -62,7 +62,6 @@
       flex-shrink: 0;
     }
 
-    /* الأزرار في الهيدر */
     .btn {
       border: none;
       border-radius: 999px;
@@ -116,10 +115,10 @@
       flex-direction: column;
       gap: 8px;
       flex: 1;           /* تمدد بين الهيدر والأسفل */
-      min-height: 0;     /* حتى لا تضغط الهيدر/الأسفل */
+      min-height: 0;
     }
 
-    /* صف علوي وسفلي، كل واحد يأخذ نصف المساحة المتبقية تقريباً */
+    /* صف علوي وسفلي، كل واحد يأخذ تقريباً نصف المساحة */
     .card-row {
       display: flex;
       gap: 6px;
@@ -138,7 +137,10 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      overflow: hidden;
+
+      overflow: visible; /* لا نقص النص */
+      min-height: 0;     /* ارتفاع مرن بالكامل */
+      flex-shrink: 1;    /* يتقلص لكن مع تصغير الخط */
       min-width: 0;
     }
 
@@ -151,21 +153,21 @@
     }
 
     .wins-badge {
-      font-size: 0.9rem;
+      font-size: clamp(0.7rem, 1.2vw, 0.9rem);
       color: #e5e7eb;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
     .card-title {
-      font-size: 3.2rem;
+      font-size: clamp(2.2rem, 3vw, 3.2rem);
       font-weight: 700;
       letter-spacing: 0.08em;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
       text-transform: uppercase;
     }
 
     .score {
-      font-size: 4.4rem;
+      font-size: clamp(3.2rem, 5vw, 4.4rem);
       font-weight: 800;
       line-height: 1.1;
       margin: 2px 0;
@@ -173,10 +175,10 @@
 
     .remaining {
       margin-top: 2px;
-      font-size: 2.8rem;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
       font-weight: 700;
       color: var(--accent);
-      min-height: 3.0rem; /* يحجز مساحة ثابتة للمتبقي */
+      min-height: 2.8rem; /* يحجز مساحة ثابتة للمتبقي */
     }
 
     .remaining.zero {
@@ -184,19 +186,19 @@
     }
 
     .label-remaining {
-      font-size: 0.85rem;
+      font-size: clamp(0.7rem, 1.2vw, 0.85rem);
       color: var(--text-muted);
       letter-spacing: 0.12em;
       text-transform: uppercase;
       margin-top: 2px;
-      min-height: 1.1rem; /* يحجز مساحة لعنوان المتبقي */
+      min-height: 1.0rem; /* يحجز مساحة لعنوان المتبقي */
     }
 
     .rotate-180 {
       transform: rotate(180deg);
     }
 
-    /* منطقة الإدخال في الوسط: ارتفاع ثابت نسبيًا */
+    /* منطقة الإدخال في الوسط */
     .middle-input {
       flex-shrink: 0;
       padding: 6px 10px;
@@ -405,13 +407,13 @@
 
     @media (max-width: 480px) {
       .card-title {
-        font-size: 2.6rem;
+        font-size: clamp(2rem, 6vw, 2.6rem);
       }
       .score {
-        font-size: 3.6rem;
+        font-size: clamp(3rem, 8vw, 3.6rem);
       }
       .remaining {
-        font-size: 2.4rem;
+        font-size: clamp(1.8rem, 5.5vw, 2.4rem);
       }
     }
   </style>
