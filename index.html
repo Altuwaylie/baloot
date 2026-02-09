@@ -41,16 +41,24 @@
       flex-direction: column;
     }
 
-   .app {
+ .app {
   height: 100%;
-  width: 100%;               /* استخدام عرض الشاشة بالكامل */
-  max-width: 600px;          /* يبقى مفيد فقط للشاشات الكبيرة */
-  margin: 0;                 /* إزالة التوسيط الذي يصنع الفراغات */
+  width: 100%;  /* على الجوال: تملا العرض */
+  max-width: 600px;
+  margin: 0;
   padding: 12px;
   display: flex;
   flex-direction: column;
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
+
+/* من عرض 768px وفوق (تابلت، فولد أفقي، كمبيوتر) نرجع نوسّطها */
+@media (min-width: 768px) {
+  .app {
+    margin: 0 auto;   /* توسيط في المنتصف */
+  }
+}
+
 
 
     header {
