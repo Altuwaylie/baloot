@@ -43,14 +43,14 @@
 
 .app {
   height: 100%;
-  width: 100%;  /* عرض كامل في كل الشاشات */
-  /* احذف هذا السطر إن وُجد: max-width: 600px; */
-  /* واحذف هذا إن وُجد: margin: 0 auto; */
+  width: 100%;
   margin: 0;
   padding: 12px;
   display: flex;
   flex-direction: column;
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* مهم للفولد والهواتف ذات الحافة السفلية */
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
 }
 
 /* من عرض 768px وفوق (تابلت، فولد أفقي، كمبيوتر) نرجع نوسّطها */
