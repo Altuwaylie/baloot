@@ -10,7 +10,7 @@
       --bg: #05070b;
       --card: #141820;
       --card-highlight-lana: #15803d;
-      --card-highlight-lahom: #1e293b;
+      --card-highlight-lahom: #b91c1c;
       --accent: #32e07b;
       --text-main: #ffffff;
       --text-muted: #a0aec0;
@@ -65,15 +65,15 @@
 
     .card-row {
       display: flex;
-      gap: 10px;
+      gap: 6px; /* فراغ أقل لعرض أكبر */
       flex: 1;
     }
 
-    .card {
-      flex: 1;
+       .card {
+      flex: 1.1; /* يجعل كل بطاقة أعرض قليلاً داخل الصف */
       background: linear-gradient(145deg, var(--card), #020617);
-      border-radius: 18px;
-      padding: 14px 10px;
+      border-radius: 16px;
+      padding: 6px 20px; /* ارتفاع أقل (6px) وعرض أكبر (20px) */
       box-shadow: 0 18px 35px rgba(0, 0, 0, 0.6);
       display: flex;
       flex-direction: column;
@@ -83,24 +83,25 @@
       overflow: hidden;
     }
 
+
     .card-lana.highlight {
       background: linear-gradient(145deg, var(--card-highlight-lana), #064e3b);
     }
 
     .card-lahom.highlight {
-      background: linear-gradient(145deg, var(--card-highlight-lahom), #020617);
+      background: linear-gradient(145deg, var(--card-highlight-lahom), #7f1d1d);
     }
 
     .card-title {
-      font-size: 1.3rem;
+      font-size: 3.5rem; /* أكبر بثلاثة أضعاف تقريبًا */
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.08em;
       margin-bottom: 8px;
       text-transform: uppercase;
     }
 
     .score {
-      font-size: 2.8rem;
+      font-size: 5.0rem; /* مضاعف تقريبًا */
       font-weight: 800;
       line-height: 1.1;
       margin: 2px 0;
@@ -108,7 +109,7 @@
 
     .remaining {
       margin-top: 4px;
-      font-size: 1.6rem;
+      font-size: 3.2rem; /* مضاعف تقريبًا */
       font-weight: 700;
       color: var(--accent);
     }
@@ -118,7 +119,7 @@
     }
 
     .label-remaining {
-      font-size: 0.7rem;
+      font-size: 0.9rem;
       color: var(--text-muted);
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -150,14 +151,6 @@
       align-items: center;
     }
 
-    .inputs label {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 3px;
-      display: block;
-      text-align: center;
-    }
-
     .inputs input[type="number"] {
       width: 90px;
       padding: 6px 8px;
@@ -178,6 +171,14 @@
 
     .inputs input[type="number"] {
       -moz-appearance: textfield;
+    }
+
+    .input-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+      display: block;
+      text-align: center;
     }
 
     .btn {
@@ -377,13 +378,13 @@
         font-size: 1.2rem;
       }
       .score {
-        font-size: 2.3rem;
+        font-size: 3.4rem;
       }
       .remaining {
-        font-size: 1.4rem;
+        font-size: 2.4rem;
       }
       .card-title {
-        font-size: 1.1rem;
+        font-size: 2.4rem;
       }
     }
   </style>
@@ -454,7 +455,7 @@
       <section class="middle-input">
         <div class="inputs-row">
           <div class="inputs">
-            <label for="input-lana">لنا</label>
+            <label for="input-lana" class="input-label">لنا</label>
             <input type="number" id="input-lana" inputmode="numeric" />
           </div>
 
@@ -477,7 +478,7 @@
           </button>
 
           <div class="inputs">
-            <label for="input-lahom">لهم</label>
+            <label for="input-lahom" class="input-label">لهم</label>
             <input type="number" id="input-lahom" inputmode="numeric" />
           </div>
         </div>
