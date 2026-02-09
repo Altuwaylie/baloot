@@ -961,24 +961,32 @@
     }
 
     // الإضافة التلقائية إذا كان في الحقلين قيمة
-    function tryAutoAdd() {
-      const lanaStr = inputLana.value.trim();
-      const lahomStr = inputLahom.value.trim();
+   function tryAutoAdd() {
+  const lanaStr = inputLana.value.trim();
+  const lahomStr = inputLahom.value.trim();
 
-      const hasLana = lanaStr !== "";
-      const hasLahom = lahomStr !== "";
+  const hasLana = lanaStr !== "";
+  const hasLahom = lahomStr !== "";
 
-      if (!hasLana || !hasLahom) return;
+  if (!hasLana || !hasLahom) return;
 
-      const lanaVal = parseInt(lanaStr, 10);
-      const lahomVal = parseInt(lahomStr, 10);
+  const lanaVal = parseInt(lanaStr, 10);
+  const lahomVal = parseInt(lahomStr, 10);
 
-      if (Number.isNaN(lanaVal) || Number.isNaN(lahomVal)) return;
+  if (Number.isNaN(lanaVal) || Number.isNaN(lahomVal)) return;
 
-      inputLana.value = "";
-      inputLahom.value = "";
-      addRound(lanaVal, lahomVal);
-    }
+  // تنظيف الحقول
+  inputLana.value = "";
+  inputLahom.value = "";
+
+  // إضافة الجولة
+  addRound(lanaVal, lahomVal);
+
+  // إغلاق الكيبورد (إلغاء التركيز عن الحقول)
+  inputLana.blur();
+  inputLahom.blur();
+}
+
 
     // منطق الإدخال للحقلين
     inputLana.addEventListener("input", () => {
